@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T: Singleton<T>
+public class Singleton: MonoBehaviour
 {
-    //public static T Instance
-    //{
+    public static Singleton Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = new Singleton();
+            return instance;
+        }
 
-    //}
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        set
+        {
+            instance = value;
+        }
+    }
+
+    private static Singleton instance;
 }
