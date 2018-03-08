@@ -224,11 +224,18 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UITexture.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
+    <Compile Include="Assets\ntest.cs" />
     <Compile Include="Assets\Scripts\Core\DataStruct.cs" />
+    <Compile Include="Assets\Scripts\Core\NTable.cs" />
+    <Compile Include="Assets\Scripts\Core\ObjectPool.cs" />
+    <Compile Include="Assets\Scripts\Core\ObjectPoolContainer.cs" />
     <Compile Include="Assets\Scripts\Core\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Core\TableCell.cs" />
     <Compile Include="Assets\Scripts\Nglobal.cs" />
     <Compile Include="Assets\Scripts\NLoadBytes.cs" />
+    <Compile Include="Assets\Scripts\PoolManager.cs" />
     <Compile Include="Assets\Scripts\ReadSource.cs" />
+    <Compile Include="Assets\Scripts\TableUnit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\NGUI\Examples\Atlases\Fantasy\Fantasy Font - Normal.txt" />

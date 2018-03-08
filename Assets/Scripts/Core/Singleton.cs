@@ -2,22 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Singleton: MonoBehaviour
+public class Singleton<T>: MonoBehaviour where T:Singleton<T>
 {
-    public static Singleton Instance
+    public static T Instance
     {
         get
         {
             if (instance == null)
-                instance = new Singleton();
+            {
+                T[] managers = Object.FindObjectsOfType(typeof(T)) as T[];
+                if (managers.Length == 1)
+                {
+                    instance = managers[0];
+                    instance.gameObject.name = typeof(T).Name;
+                    return instance;
+                }
+                else
+                {
+                    Debug.Log("Class " + typeof(T) + " exists multiple times in violation of singleton pattern. Destroying all copies");
+                    foreach (T manager in managers)
+                    {
+                        Destroy(manager.gameObject);
+                    }
+                }
+                var go = new GameObject(typeof(T).Name, typeof(T));
+                instance = go.GetComponent<T>();
+                DontDestroyOnLoad(go);
+            }                
             return instance;
         }
 
         set
         {
-            instance = value;
+            instance = value as T;
         }
     }
 
-    private static Singleton instance;
+    private static T instance;
 }

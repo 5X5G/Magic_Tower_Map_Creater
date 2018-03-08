@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Nglobal : MonoBehaviour {
+public class Nglobal : Singleton<Nglobal> {
 
     public enum DictionaryName
     {
@@ -11,35 +13,43 @@ public class Nglobal : MonoBehaviour {
         Monster,
         Wall,
     }
-    public static Nglobal instance;
+
+    public static Nglobal nglobal;
     public static ReadSource readSource;
+    public static PoolManager poolManager;
 
-    private void Awake()
+    //private void Awake()
+    //{
+    //    if(instance!=null)
+    //        instance = this;
+
+    //    Init();
+    //}
+
+    private void Start()
     {
-        if(instance!=null)
-            instance = this;
-
         Init();
+        SceneManager.LoadScene("Create");
     }
-
-    #region 贴图资源
-    public static List<SpriteInfo> itemList = new List<SpriteInfo>();
-    public static List<SpriteInfo> monsterList = new List<SpriteInfo>();
-    public static List<SpriteInfo> wallList = new List<SpriteInfo>();
-    public static List<SpriteInfo> characterList = new List<SpriteInfo>();
-    #endregion
-
     private void Init()
     {
-        readSource = new ReadSource();
-        InitSpriteList();
+        nglobal = Instance;
+        DontDestroyOnLoad(this.gameObject);
+        readSource = ReadSource.Instance;
+        poolManager = PoolManager.Instance;
     }
 
-    private void InitSpriteList()
+    //贴图资源
+    //public static Dictionary<string, List<SpriteInfo>> spriteInfos = new Dictionary<string, List<SpriteInfo>>();
+
+    public static Dictionary<string, List<SpriteInfo>> InitSpriteList()
     {
-        itemList = readSource.LoadSpiteName(DictionaryName.Item.ToString());
-        monsterList = readSource.LoadSpiteName(DictionaryName.Monster.ToString());
-        wallList = readSource.LoadSpiteName(DictionaryName.Wall.ToString());
-        characterList = readSource.LoadSpiteName(DictionaryName.Character.ToString());
+        Dictionary<string, List<SpriteInfo>> spriteInfos = new Dictionary<string, List<SpriteInfo>>();
+        foreach (DictionaryName name in Enum.GetValues(typeof(DictionaryName)))
+        {
+            List<SpriteInfo> tempList = readSource.LoadSpiteName(name.ToString());
+            spriteInfos.Add(name.ToString(), tempList);
+        }
+        return spriteInfos;
     }
 }

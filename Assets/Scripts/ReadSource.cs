@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class ReadSource:MonoBehaviour
+public class ReadSource:Singleton<ReadSource>
 {
     private string path = "Assets/Art/UI/";
-    private List<SpriteInfo> spriteInfoList = new List<SpriteInfo>();
+
 
     public List<SpriteInfo> LoadSpiteName(string dictionary)
-    {       
+    {
+        List<SpriteInfo> spriteInfoList = new List<SpriteInfo>();
         string currentPath = path + dictionary;
         if (Directory.Exists(currentPath))
         {
@@ -26,12 +27,13 @@ public class ReadSource:MonoBehaviour
                     string[] nameList = file.Name.Split('.');
                     temp.name = nameList[0];
                     temp.name_extra = nameList[1];
+                    temp.parent = directory.Name;
                     spriteInfoList.Add(temp);
                     Debug.Log(file);
                 }
             }
         }
         return spriteInfoList;
-    }
+    }    
 
 }
