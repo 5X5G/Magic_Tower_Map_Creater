@@ -16,15 +16,8 @@ public class Nglobal : Singleton<Nglobal> {
 
     public static Nglobal nglobal;
     public static ReadSource readSource;
-    public static PoolManager poolManager;
-
-    //private void Awake()
-    //{
-    //    if(instance!=null)
-    //        instance = this;
-
-    //    Init();
-    //}
+    public static PoolManager poolManager;    
+    public static Creater creater;
 
     private void Start()
     {
@@ -38,9 +31,6 @@ public class Nglobal : Singleton<Nglobal> {
         readSource = ReadSource.Instance;
         poolManager = PoolManager.Instance;
     }
-
-    //贴图资源
-    //public static Dictionary<string, List<SpriteInfo>> spriteInfos = new Dictionary<string, List<SpriteInfo>>();
 
     public static Dictionary<string, List<SpriteInfo>> InitSpriteList()
     {

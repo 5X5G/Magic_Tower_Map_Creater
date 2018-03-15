@@ -13,6 +13,13 @@ public class SpriteInfo
 
 public class CellData
 {
-    public string name;
-    public string altas;    
+    public string type;
+    public string sName;
+    public string altas;
+    public Property property;
+}
+
+public class Property
+{
+
 }

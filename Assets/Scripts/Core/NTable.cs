@@ -4,48 +4,99 @@ using UnityEngine;
 
 public class NTable : UITable {
 
-    protected static Dictionary<string, List<SpriteInfo>> spriteInfos = new Dictionary<string, List<SpriteInfo>>();
-    protected int poolObjectLength;
+    public NTableData tableData;
+    public Transform mRoot;
+    public GameObject cell;
+    public UIDragScrollView mDragScrollView;
+    public Transform[] cells;
+    protected CellData cellInfo;       
 
     protected override void Start()
-    {        
-        spriteInfos = Nglobal.InitSpriteList();
-        CaculateLength();
+    {
+        tableData.Init();
+        Init();
+        base.Start();
     }
 
-    public new void Reposition()
+    protected override void Init()
     {
-        if (Application.isPlaying && !mInitDone && NGUITools.GetActive(this)) Init();
+        base.Init();
 
-        mReposition = false;
-        Transform myTrans = transform;
-        List<Transform> ch = GetChildList();
-        if (ch.Count > 0) RepositionVariableSize(ch);
-
-        if (keepWithinPanel && mPanel != null)
+        if (tableData.CellDatas == null)
         {
-            mPanel.ConstrainTargetToBounds(myTrans, true);
-            UIScrollView sv = mPanel.GetComponent<UIScrollView>();
-            if (sv != null) sv.UpdateScrollbars(true);
+            Debug.Log("无元素");
+            return;
         }
 
-        if (onReposition != null)
-            onReposition();
+        if (tableData.CellDatas[0].type == "title")
+            InitCellView1();
     }
 
-    public virtual void SetCellInfo(Transform myTrans)
+    public void InitCellView1()
     {
-        for (int i = 0; i < myTrans.childCount; i++)
+        List<CellData> celldatas = new List<CellData>(celldatas = tableData.CellDatas);        
+        int length = tableData.CellDatas.Count;
+
+        if (tableData.CellDatas == null)
         {
-            Transform trans = myTrans.GetChild(i);
+            Debug.Log("无元素");
+            return;
+        }            
+        for (int i = 0; i < length; i++)
+        {
+            var go = Instantiate(cell) as GameObject;
+            go.transform.parent = mRoot;
+            go.transform.localScale = Vector3.one;
+            go.name = tableData.CellDatas[i].altas;
+
+            UILabel label = go.transform.GetComponentInChildren<UILabel>();
+            label.text = go.name;
+
+            UIDragScrollView dragScrollView = go.GetComponent<UIDragScrollView>();
+            dragScrollView = mDragScrollView;
+
         }
     }
 
-    private void CaculateLength()
+    public void InitCellView2()
     {
-        foreach (var spriteInfo in spriteInfos)
+        int length = Creater.spriteInfos[Creater.chooseTitle].Count;
+        for (int i = 0; i < length; i++)
         {
-            Debug.Log(spriteInfo); 
+            var go = Instantiate(cell) as GameObject;
+            go.transform.parent = mRoot;
+            go.transform.localScale = Vector3.one;
+            go.name = Creater.spriteInfos[Creater.chooseTitle][i].name;
+
+            ObjState objState = go.GetComponent<ObjState>();
+            objState.mUISprite.atlas.name = Creater.chooseTitle;
+            objState.mUISprite.spriteName = go.name;
+
+            UIDragScrollView dragScrollView = go.GetComponent<UIDragScrollView>();
+            dragScrollView = mDragScrollView;
         }
+    }
+
+    public void SetTitle()
+    {
+        int length = Creater.spriteInfos[Creater.chooseTitle].Count;
+        for (int i = 0; i < length; i++)
+        {
+            var go = Instantiate(cell) as GameObject;
+            go.transform.parent = mRoot;
+            go.transform.localScale = Vector3.one;
+            go.name = Creater.spriteInfos[Creater.chooseTitle][i].name;
+            ObjState objState = go.GetComponent<ObjState>();
+            objState.mUISprite.atlas.name = Creater.chooseTitle;
+            objState.mUISprite.spriteName = go.name;
+            UIDragScrollView dragScrollView = go.GetComponent<UIDragScrollView>();
+            dragScrollView = mDragScrollView;
+
+        }
+    }
+
+    public static void NSetCellInfo()
+    {
+        NSetCellInfo();
     }
 }
