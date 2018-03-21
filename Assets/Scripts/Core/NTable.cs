@@ -6,15 +6,16 @@ public class NTable : UITable {
 
     public NTableData tableData;
     public Transform mRoot;
+    public Transform mInfoTable;
     public GameObject cell;
+    public UIScrollView scrollView;
     public UIDragScrollView mDragScrollView;
-    public Transform[] cells;
     protected CellData cellInfo;       
 
     protected override void Start()
     {
         tableData.Init();
-        Init();
+        //Init();
         base.Start();
     }
 
@@ -22,9 +23,9 @@ public class NTable : UITable {
     {
         base.Init();
 
-        if (tableData.CellDatas == null)
+        if (tableData.CellDatas.Count == 0)
         {
-            Debug.Log("无元素");
+            Debug.Log(gameObject.transform.parent.name + "无元素");
             return;
         }
 
@@ -51,52 +52,52 @@ public class NTable : UITable {
 
             UILabel label = go.transform.GetComponentInChildren<UILabel>();
             label.text = go.name;
-
             UIDragScrollView dragScrollView = go.GetComponent<UIDragScrollView>();
             dragScrollView = mDragScrollView;
 
+            ObjState objState = go.GetComponent<ObjState>();
+            objState.CellInfo = celldatas[i];
+            objState.InfoTable = mInfoTable.GetComponent<NTable>();
+            objState.parentTable = this;
         }
     }
 
     public void InitCellView2()
     {
-        int length = Creater.spriteInfos[Creater.chooseTitle].Count;
+        if (Creater.chooseTitle == null)
+        {
+            Debug.Log("无标题");
+            return;
+        }  
+
+        if (gameObject.transform.childCount != 0)
+            gameObject.transform.DestroyChildren();
+
+        scrollView.ResetPosition();
+
+        List<SpriteInfo> spriteInfo = Creater.spriteInfos[Creater.chooseTitle];
+        int length = spriteInfo.Count;
         for (int i = 0; i < length; i++)
         {
             var go = Instantiate(cell) as GameObject;
             go.transform.parent = mRoot;
             go.transform.localScale = Vector3.one;
-            go.name = Creater.spriteInfos[Creater.chooseTitle][i].name;
+            go.name = spriteInfo[i].name;
 
             ObjState objState = go.GetComponent<ObjState>();
-            objState.mUISprite.atlas.name = Creater.chooseTitle;
-            objState.mUISprite.spriteName = go.name;
+            Debug.Log("Art/UI/" + Creater.chooseTitle);
+            var atlas_go = Resources.Load<GameObject>("Art/UI/" + Creater.chooseTitle);
+            objState.mUISprite.atlas = atlas_go.GetComponent<UIAtlas>();
+            objState.CellInfo = new CellData();
+            objState.CellInfo.altas = spriteInfo[i].parent;
+            objState.CellInfo.sName = spriteInfo[i].name;
+            objState.CellInfo.type = "cell";
+            //objState.CellInfo.property
 
+            objState.mUISprite.spriteName = go.name;
+            objState.mUISprite.depth = 1;
             UIDragScrollView dragScrollView = go.GetComponent<UIDragScrollView>();
             dragScrollView = mDragScrollView;
         }
-    }
-
-    public void SetTitle()
-    {
-        int length = Creater.spriteInfos[Creater.chooseTitle].Count;
-        for (int i = 0; i < length; i++)
-        {
-            var go = Instantiate(cell) as GameObject;
-            go.transform.parent = mRoot;
-            go.transform.localScale = Vector3.one;
-            go.name = Creater.spriteInfos[Creater.chooseTitle][i].name;
-            ObjState objState = go.GetComponent<ObjState>();
-            objState.mUISprite.atlas.name = Creater.chooseTitle;
-            objState.mUISprite.spriteName = go.name;
-            UIDragScrollView dragScrollView = go.GetComponent<UIDragScrollView>();
-            dragScrollView = mDragScrollView;
-
-        }
-    }
-
-    public static void NSetCellInfo()
-    {
-        NSetCellInfo();
     }
 }

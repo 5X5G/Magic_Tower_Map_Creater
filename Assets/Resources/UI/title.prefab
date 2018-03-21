@@ -110,7 +110,11 @@ MonoBehaviour:
   pressedSprite2D: {fileID: 0}
   disabledSprite2D: {fileID: 0}
   pixelSnap: 0
-  onClick: []
+  onClick:
+  - mTarget: {fileID: 114368418908523770}
+    mMethodName: ClickTitle
+    mParameters: []
+    oneShot: 0
 --- !u!114 &114306557037691966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -177,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mUISprite: {fileID: 114306557037691966}
+  infoTable: {fileID: 0}
 --- !u!114 &114390775045263304
 MonoBehaviour:
   m_ObjectHideFlags: 1

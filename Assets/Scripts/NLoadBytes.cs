@@ -72,41 +72,5 @@ public class NLoadBytes:MonoBehaviour
         sFormat[0].RemoveAt(sFormat[0].Count - 1);
     }
 
-    //private Dictionary<string, string> LoadTextResourceImpl(TextAsset textAsset, string fileName)
-    //{
-    //    //if (textAsset != null)
-    //    //{
-    //    //    Dictionary<string, string> tempDict = new Dictionary<string, string>();
-    //    //    try
-    //    //    {
-    //    //        StringReader reader = new StringReader(textAsset.text);
-    //    //        string line;
-    //    //        int lineLength = 1;
-    //    //        line = reader.ReadLine();
-    //    //        while (line != null)
-    //    //        {
-    //    //            ;lineLength++;
-    //    //            if (line.StartsWith("#") || string.IsNullOrEmpty(line))
-    //    //            {
-    //    //                line = reader.ReadLine();
-    //    //                continue;
-    //    //            }
-
-    //    //            //string[] 
-
-    //    //        }
-    //    //    }
-    //    //    catch (System.Exception e)
-    //    //    {
-    //    //        Debug.Log("Parse TextResource Error : " + e.ToString());
-    //    //    }
-    //    //    return tempDict;
-    //    //}
-    //    //else
-    //    //{
-    //    //    Debug.Log("Load Text Resource Error");
-    //    //    return new Dictionary<string, string>();
-    //    //}
-            
-    //}
+    
 }

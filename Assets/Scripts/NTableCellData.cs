@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NTableCellData : MonoBehaviour {
+public class NTableCellData : NTableData {
 
 	// Use this for initialization
 	void Start () {

@@ -17,7 +17,7 @@ public class Nglobal : Singleton<Nglobal> {
     public static Nglobal nglobal;
     public static ReadSource readSource;
     public static PoolManager poolManager;    
-    public static Creater creater;
+    public static Creater creater;    
 
     private void Start()
     {
@@ -42,4 +42,8 @@ public class Nglobal : Singleton<Nglobal> {
         }
         return spriteInfos;
     }
+
+    #region 提示语
+    public static string forgetChooseCell = "没有选中的元素";
+    #endregion
 }
