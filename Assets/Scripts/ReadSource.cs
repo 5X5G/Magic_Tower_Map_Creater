@@ -7,7 +7,7 @@ using UnityEngine;
 public class ReadSource:Singleton<ReadSource>
 {
     private string UIpath = "Assets/Art/UI/";
-    private Vector2 vec = new Vector2(0, 600);
+    private Vector2 vec = new Vector2(0, 0);
     private string previewName = "gray";
     private int length = 11;
 
@@ -102,4 +102,14 @@ public class ReadSource:Singleton<ReadSource>
         }
     }
 
+    public void InitMap(ref Transform[] cells)
+    {
+        var atlas_go = Resources.Load<GameObject>("Art/UI/" + Nglobal.DictionaryName.Wall);
+        for (int i = 0; i < cells.Length; i++)
+        {
+            UISprite mUISprite = cells[i].GetComponent<UISprite>();
+            mUISprite.atlas = atlas_go.GetComponent<UIAtlas>();
+            mUISprite.GetComponent<UIButton>().normalSprite = previewName;           
+        }
+    }
 }

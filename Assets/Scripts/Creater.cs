@@ -38,6 +38,11 @@ public class Creater : MonoBehaviour
         InitializeCell2();
     }
 
+    public void Init()
+    {
+        Nglobal.readSource.InitMap(ref cells);
+    }
+
     private void InitializeCell2()
     {
         for (int i = 0; i < cellInfos.GetLength(0); i++)
