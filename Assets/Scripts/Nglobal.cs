@@ -45,5 +45,10 @@ public class Nglobal : Singleton<Nglobal> {
 
     #region 提示语
     public static string forgetChooseCell = "没有选中的元素";
+    public static string showFloor = "层数: ";
+    public static string showFloorError1 = "层数到底了 ";
+    public static string saveSuccess = "保存bytes成功";
+    public static string loadSuccess = "读取bytes成功";
+    public static string initSuccess = "Init地图成功";
     #endregion
 }
