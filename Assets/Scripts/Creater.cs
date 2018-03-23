@@ -14,8 +14,7 @@ public class Creater : MonoBehaviour
     private CellData[,] cellInfos;
     private List<CellData[,]> floorList;
     private string MapPath = "Assets/Resources/";
-    private string mapInfo = "test1.bytes";
-    private string mapInfo2 = "test1.bytes";
+    private string mapInfo = "mapInfo.bytes";
     private int floor;
 
     private void Awake()
@@ -54,7 +53,7 @@ public class Creater : MonoBehaviour
         floorList = new List<CellData[,]>();
         floor = 1;
         Init();
-        Nglobal.readSource.LoadMapBytes(mapInfo2, ref floorList, MapPath);
+        Nglobal.readSource.LoadMapBytes(mapInfo, ref floorList, MapPath);
         SaveCellState(0);
         InitializeCell1(cellInfos);        
         ShowFloor();

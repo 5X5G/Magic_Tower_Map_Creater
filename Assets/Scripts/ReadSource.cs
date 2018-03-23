@@ -73,15 +73,16 @@ public class ReadSource:Singleton<ReadSource>
 
     public void LoadMapBytes(string mapFile,ref List<CellData[,]> floorList,string path1)
     {
+        if (!File.Exists(path1 + mapFile))
+        {
+            Debug.Log(Nglobal.mapInfoMiss);
+        }
+            
         string[] path = mapFile.Split('.');
-        TextAsset textAsset = Resources.Load(path[0]) as TextAsset;
-
         StreamReader sr = new StreamReader(path1 + mapFile, System.Text.Encoding.Default);
         string s = sr.ReadToEnd();
 
-
         //去除最后的\n
-        //string mapArray = textAsset.text.Remove(textAsset.text.Length - 1);
         string mapArray = s.Remove(s.Length - 1);
         string[] mapLines = mapArray.Split('\n');
 

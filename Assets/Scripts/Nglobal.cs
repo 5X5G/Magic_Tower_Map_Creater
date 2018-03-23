@@ -45,6 +45,7 @@ public class Nglobal : Singleton<Nglobal> {
 
     #region 提示语
     public static string forgetChooseCell = "没有选中的元素";
+    public static string mapInfoMiss = "没有mapInfo的bytes文件";
     public static string showFloor = "层数: ";
     public static string showFloorError1 = "层数到底了 ";
     public static string saveSuccess = "保存bytes成功";
