@@ -16,7 +16,7 @@ public class Nglobal : Singleton<Nglobal> {
 
     public static Nglobal nglobal;
     public static ReadSource readSource;
-    public static PoolManager poolManager;    
+    //public static PoolManager poolManager;    
     public static Creater creater;    
 
     private void Start()
@@ -29,7 +29,7 @@ public class Nglobal : Singleton<Nglobal> {
         nglobal = Instance;
         DontDestroyOnLoad(this.gameObject);
         readSource = ReadSource.Instance;
-        poolManager = PoolManager.Instance;
+        //poolManager = PoolManager.Instance;
     }
 
     public static Dictionary<string, List<SpriteInfo>> InitSpriteList()
